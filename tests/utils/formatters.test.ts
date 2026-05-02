@@ -1,4 +1,19 @@
-import { formatBytes } from '../../src/utils/formatters';
+import { formatBytes, formatSabnzbdSpeedKbps } from '../../src/utils/formatters';
+
+describe('formatSabnzbdSpeedKbps', () => {
+    it('returns SABnzbd-style zero when idle', () => {
+        expect(formatSabnzbdSpeedKbps(0)).toBe('0 ');
+        expect(formatSabnzbdSpeedKbps(-1)).toBe('0 ');
+    });
+
+    it('formats KB/s tier', () => {
+        expect(formatSabnzbdSpeedKbps(50)).toBe('50.0 K');
+    });
+
+    it('formats MB/s tier like SABnzbd / Homepage examples', () => {
+        expect(formatSabnzbdSpeedKbps(1296.02)).toBe('1.3 M');
+    });
+});
 
 describe('formatBytes', () => {
     it('formats bytes correctly', () => {
