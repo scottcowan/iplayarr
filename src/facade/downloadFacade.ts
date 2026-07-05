@@ -60,8 +60,6 @@ class DownloadFacade {
                     //Move the resultant file
                     loggingService.debug(pid, `Looking for video files in ${directory}`);
                     const files = fs.readdirSync(directory);
-                    // Exclude _original files — these are get-iplayer's ffmpeg post-processing
-                    // backups and are deleted by get-iplayer after processing completes.
                     const videoFile = files.find((file) => (file.endsWith('.mp4') || file.endsWith('.mkv')) && !file.includes('_original'));
 
                     if (videoFile) {
@@ -146,8 +144,6 @@ class DownloadFacade {
             entries.forEach((entry) => {
                 if (!entry.isDirectory()) return;
 
-                // Never delete a directory for an actively-queued PID — the download
-                // process is still running and would get an ENOENT on its copy step.
                 if (queueService.getFromQueue(entry.name)) return;
 
                 const dirPath: string = path.join(downloadDir, entry.name);
