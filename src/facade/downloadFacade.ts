@@ -60,7 +60,7 @@ class DownloadFacade {
                     //Move the resultant file
                     loggingService.debug(pid, `Looking for video files in ${directory}`);
                     const files = fs.readdirSync(directory);
-                    const videoFile = files.find((file) => (file.endsWith('.mp4') || file.endsWith('.mkv')) && !file.includes('_original'));
+                    const videoFile = files.find((file) => (file.endsWith('.mp4') || file.endsWith('.mkv')) && !file.endsWith('_original.mp4') && !file.endsWith('_original.mkv'));
 
                     if (videoFile) {
                         const oldPath = path.join(directory, videoFile);
