@@ -20,7 +20,7 @@ class NativeSearchService implements AbstractSearchService {
         const url = `https://ibl.api.bbc.co.uk/ibl/v1/new-search?q=${encodeURIComponent(term)}`;
         let response: AxiosResponse<IPlayerNewSearchResponse>;
         try {
-            response = await axios.get(url);
+            response = await axios.get(url, { timeout: 10000 });
         } catch (err) {
             // axios rejects (doesn't resolve with a non-200 status) on 4xx/5xx by default.
             // A single bad query — an odd synonym, an unexpected character — must not take
